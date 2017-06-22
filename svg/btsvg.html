@@ -1,0 +1,54 @@
+<!-- Binary Tree SVG Version written by Jan Ocampo -->
+<html>
+<head>
+<a href="index.html" >Return to Main Page</a>
+<title>Binary Tree Visualizer (SVG)</title>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="mydemostyle2.css" />
+
+<!-- Libraries used: jQuery and Raphael -->
+<script 
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"> 
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.0/raphael.js"> 
+</script>
+
+<!-- TOADD: bt.js file -->
+<script type="text/javascript" src="bt.js"></script>
+
+
+<h1> Binary Tree v1 (Ocampo)</h1>
+This is a basic binary tree visualizer used in Rika Yoshii's CS311 Class.<br>
+Instructions: Make two pointers go down the tree until pointer v becomes NULL.<br>
+
+<br>
+
+<style type = "text/css">
+#canvas_container {
+  width: 700px;
+  color: white;
+  border: 1px solid #aaa;
+}
+</style>
+
+<div id = "tree"> </div>
+<body>
+  
+<!-- User Control Area -->
+
+<div id = "control"> 
+  <select name = "executeQuery" id = "executeQuery">
+    <option value = "pToV"> Parent --> V </option>
+    <option value = "vLeft"> V --> Left </option>
+    <option value = "vRight"> V --> Right </option>
+    <option value = "deleteLeaf"> Delete a Leaf </option>
+    <option value = "deleteOne"> Delete a Node (One child) </option>
+    <option value = "deleteTwo"> Delete a Node (Two Children) </option>
+    </select>
+    <button id = "submitBtn" type = "button"> Submit </button>
+</div>
+
+</body>
+
+</head>
+</html>
