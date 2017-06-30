@@ -19,7 +19,19 @@
 
 <h1> Binary Tree v1 (Ocampo)</h1>
 This is a basic binary tree visualizer used in Rika Yoshii's CS311 Class.<br>
-Instructions: Make two pointers go down the tree until pointer v becomes NULL.<br>
+Each vertex in a binary tree consists of 3 elements. <br><br>
+struct vertex { <br>
+  <span style="display:inline-block; width: 10;"></span>
+  vertex * left; // Pointer to the Left Vertex<br>
+  <span style="display:inline-block; width: 10;"></span>
+  int elem; // Integer Id<br>
+  <span style="display:inline-block; width: 10;"></span>
+  vertex * right; // Pointer to the Right Vertex<br>
+}; <br><br>
+In addition, there are three vertex pointers to account for: root, parent, and v. These are represented by the colored circles around each node. <br><br>
+vertex * root, parent, v; <br><br>
+
+Instructions: Make the parent pointer and v pointer go down the tree until both pointers become NULL.<br>
 
 <br>
 
@@ -41,12 +53,12 @@ Instructions: Make two pointers go down the tree until pointer v becomes NULL.<b
     <option value = "pToV"> Parent --> V </option>
     <option value = "vLeft"> V --> Left </option>
     <option value = "vRight"> V --> Right </option>
-    <option value = "deleteLeaf"> Delete a Leaf </option>
-    <option value = "deleteOne"> Delete a Node (One child) </option>
-    <option value = "deleteTwo"> Delete a Node (Two Children) </option>
     </select>
     <button id = "submitBtn" type = "button"> Submit </button>
+    <INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
+
 </div>
+
 
 </body>
 
