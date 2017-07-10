@@ -1,6 +1,6 @@
 // Global variables
 var paper, v_ptr, p_ptr, r_ptr; // Used for Raphael
-// POinters as globals 
+// Pointers as globals 
 
 /* This function creates the nodes on the image. Acts like a struct.*/
 function createNode(id, x, y) {
@@ -44,18 +44,7 @@ function drawTree() {
 	// fourth level - left side 
 	var node_one = createNode(1, 150, 200);
 
-	// fifth level - NULL NODES
-	var null_node_one = createNode("NULL", 150, 250);
-	var null_node_four = createNode("NULL", 250, 250);
-	var null_node_eight = createNode("NULL", 350, 250);
-	var null_node_seven = createNode("NULL", 300, 250);
 
-	// add lines to null Nodes
-	paper.path("M150, 220, L150, 230"); // 1 - NULL
-	paper.path("M250, 170, L250, 230"); // 4 - NULL
-	paper.path("M300, 120, L300, 230"); // 7 - NULL
-	paper.path("M350, 170, L350, 230"); // 8 - NULL
-	paper.path("M170, 150, L250, 230"); // 2 - NULL
 }
 
 
@@ -92,6 +81,7 @@ window.onload = function() {
 	r_ptr.attr("stroke", "red");
 	r_ptr.attr("stroke-width", 2);
 
+	// paper.circle(250, 5, 23);
 	p_ptr = paper.text(250, 5, "NULL");
 	p_ptr.attr({"fill" : "blue", "font-size" : 14, "font-family": "Times New Roman"});
 
