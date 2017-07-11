@@ -31,7 +31,7 @@ struct vertex { <br>
 In addition, there are three vertex pointers to account for: root, parent, and v. These are represented by the colored circles around each node. <br><br>
 vertex * root, parent, v; <br><br>
 
-Instructions: Make the parent pointer and v pointer go down the tree until both pointers become NULL.<br>
+Instructions: Make the parent pointer and v pointer go down the tree until the V pointer becomes NULL and the Parent pointer points to a leaf.<br>
 
 <br>
 
@@ -56,6 +56,7 @@ Instructions: Make the parent pointer and v pointer go down the tree until both 
     </select>
     <button id = "submitBtn" type = "button"> Submit </button>
     <INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
+    <button id = "checkBtn" type = "button" onClick="check()"> Check </button>
 
 </div>
 

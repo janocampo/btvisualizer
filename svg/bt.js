@@ -10,6 +10,13 @@ function createNode(id, x, y) {
 	this.id_text = paper.text(x, y, id).attr({"font-size": 14, "font-family" : "Times New Roman"});
 }
 
+function createNullNode(id, x, y) {
+	this.id = id;	
+	this.circle = paper.circle(x, y, 10);
+	circle.attr("stroke-width", 2);
+	this.id_text = paper.text(x, y, id).attr({"font-size": 14, "font-family" : "Times New Roman"});	
+}
+
 
 // Draws the actual tree into the document
 function drawTree() {
@@ -44,10 +51,42 @@ function drawTree() {
 	// fourth level - left side 
 	var node_one = createNode(1, 150, 200);
 
+	// null node for node 1
+	var node_null = createNullNode("X", 125, 250);
+	var node_null = createNullNode("X", 175, 250);
 
+	// null node for node 4
+	var node_null = createNullNode("X", 225, 200);
+	var node_null = createNullNode("X", 275, 200);
+
+	// null node for node 8
+	var node_null = createNullNode("X", 325, 200);
+	var node_null = createNullNode("X", 375, 200);
+
+	// null node for node 2
+	var node_null = createNullNode("X", 200, 170);
+
+	// null node for node 7
+	var node_null = createNullNode("X", 300, 150);
+
+	// 1 to null
+	paper.path("M 130, 200 ,L 125, 240");
+	paper.path("M 170, 200 ,L 175, 240");
+
+	// 4 to null
+	paper.path("M 230, 150 ,L 225, 190");
+	paper.path("M 270, 150 ,L 275, 190");
+
+	// 8 to null
+	paper.path("M 330, 150 ,L 325, 190");
+	paper.path("M 370, 150 ,L 375, 190");
+
+	// 2 to null
+	paper.path("M 170, 150 ,L 200, 160");
+
+	// 7 to null
+	paper.path("M 300, 120 ,L 300, 140");
 }
-
-
 
 //  Draw Key Guide with colors 
 function drawKey() {
@@ -58,6 +97,9 @@ function drawKey() {
 	paper.text(65, 150, "= Parent");
 	var root_ptr = paper.circle(25, 200, 10);
 	paper.text(65, 200, "= root");
+	var node_null = createNullNode("X", 25, 250);
+	paper.text(65, 250, "= Null Ref");
+
 
 	v.attr("fill", "green");
 	parent.attr("fill", "blue");
@@ -65,12 +107,16 @@ function drawKey() {
 }
 
 window.onload = function() {
-	paper = new Raphael(document.getElementById('tree'), 500, 300);
+	paper = new Raphael(document.getElementById('tree'), 600, 300);
 	drawTree();
 	drawKey();
 
 	// Used to keep track of the pointer coordinates
 	var current_x = 250, current_y = 50;
+
+	// Boolean variables to keep track of pointer states
+	var vIsNull = false;
+	var pIsLeaf = false;
 
 	// Setting up the pointers
 	v_ptr = paper.circle(250, 50, 23);
@@ -81,7 +127,6 @@ window.onload = function() {
 	r_ptr.attr("stroke", "red");
 	r_ptr.attr("stroke-width", 2);
 
-	// paper.circle(250, 5, 23);
 	p_ptr = paper.text(250, 5, "NULL");
 	p_ptr.attr({"fill" : "blue", "font-size" : 14, "font-family": "Times New Roman"});
 
@@ -91,24 +136,60 @@ window.onload = function() {
         	p_ptr = paper.circle(current_x, current_y, 25);
         	p_ptr.attr("stroke", "blue");
         	p_ptr.attr("stroke-width", 2);
-        	if (current_y == 250) {
-        		alert("Parent has reached Null");
+        	if ((current_x == 250 && current_y == 150) || (current_x == 150 && current_y == 200) || (current_x == 350 && current_y == 150)) {
+        		alert("Parent has reached a leaf");
+        		pIsLeaf = true;
         	}
+        	// If parent points to null
+        	else if (current_y == 250 || current_y == 170 || current_x == 225 || current_x == 275 || current_x == 325 || current_x == 375 || (current_x == 300 && current_y == 150)) {
+        		alert("Parent has reached NULL! Task cannot be completed. Reloading...");
+        		history.go(0);
+        	}
+        	else
+        		alert("Something broke!");
         }
         else if ( $('select#executeQuery').val() === "vLeft") {
         	// Account for user query to go down further after NULL has already been reaced
-        	if (current_y == 250) {
+        	if (current_y == 250 || current_y == 170 || current_x == 225 || current_x == 275 || current_x == 325 || current_x == 375 || (current_x == 300 && current_y == 150)) {
         		alert("You cannot proceed further down as the pointer has reached NULL");
         		// Refresh page here
         		history.go(0);
-
         	}
         	// Account for NULL Cases
-        	else if ((current_x == 350 && current_y == 150) || (current_x == 300 && current_y == 100) || (current_x == 250 && current_y == 150) || (current_x == 150 & current_y == 200)) {
+        	// NULL CASE: NODE 1 LEFT CHILD
+        	else if (current_x == 150 & current_y == 200) {
         		v_ptr.remove();
+        		current_x = 125;
         		current_y = 250;
-        		v_ptr = paper.circle(current_x, current_y, 23).attr({"stroke" : "green", "stroke-width" : 2});
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
         		alert("V Pointer has reached Null");
+        		vIsNull = true;
+        	}
+        	// NULL CASE: NODE 8 LEFT CHILD
+        	else if (current_x == 350 && current_y == 150) {
+				v_ptr.remove();
+				current_x = 325;
+        		current_y = 200;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V Pointer has reached Null");
+        		vIsNull = true;
+        	}
+        	// NULL CASE: NODE 7 LEFT CHILD
+        	else if (current_x == 300 && current_y == 100) {
+        		v_ptr.remove();
+        		current_y = 150;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V Pointer has reached Null");
+        		vIsNull = true;
+        	}
+        	// NULL CASE: NODE 4 LEFT CHILD
+        	else if (current_x == 250 && current_y == 150) {
+        	    v_ptr.remove();
+        	    current_x = 225;
+        		current_y = 200;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V Pointer has reached Null");
+        		vIsNull = true;
         	}
         	else if (current_x == 150 && current_y == 150) {
         		v_ptr.remove();
@@ -125,25 +206,53 @@ window.onload = function() {
 
         }
         else if ( $('select#executeQuery').val() === "vRight") {
-        	// CASE !: IF ALREADY ON NULL -> MSG
-        	if (current_y == 250) {
+        	// CASE 1: IF ALREADY ON NULL -> MSG
+        	if (current_y == 250 || current_y == 170 || current_x == 225 || current_x == 275 || current_x == 325 || current_x == 375 || (current_x == 300 && current_y == 150)) {
         		alert("You cannot proceed further down as the pointer has reached NULL");
         		history.go(0);
         	}
-        	// CASE 2: IF V WILL LEAD TO NULL -> MSG
-        	else if ((current_x == 150) || (current_x == 250 && current_y == 150) || (current_x == 350 && current_y == 150)) {
+        	// CASE 2: NODE 1 RIGHT CHILD
+        	else if (current_x == 150 && current_y == 200) {
         		v_ptr.remove();
+        		current_x = 175;
         		current_y = 250;
-        		v_ptr = paper.circle(current_x, current_y, 23).attr({"stroke" : "green", "stroke-width" : 2});
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
         		alert("V pointer has reached NULL");
+        		vIsNull = true;
         	}
-        	// CASE 4: NORMAL 
+        	// CASE 3: NODE 2 RIGHT CHILD
+        	else if (current_x == 150 && current_y == 150) {
+        		v_ptr.remove();
+        		current_x = 200;
+        		current_y = 170;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V pointer has reached NULL");
+        		vIsNull = true;
+        	}
+        	// CASE 4: NODE 4 RIGHT CHILD
+        	else if (current_x == 250 && current_y == 150) {        		
+        		v_ptr.remove();
+        		current_x = 275;
+        		current_y = 200;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V pointer has reached NULL");
+        		vIsNull = true;
+        	}
+        	// CASE 5: NODE 8 RIGHT CHILD
+        	else if (current_x == 350 && current_y == 150) {        		
+        		v_ptr.remove();
+        		current_x = 375;
+        		current_y = 200;
+        		v_ptr = paper.circle(current_x, current_y, 13).attr({"stroke" : "green", "stroke-width" : 2});
+        		alert("V pointer has reached NULL");
+        		vIsNull = true;
+        	}
+        	// CASE 4: NORMAL CASE MOVE THE POINTER 
         	else {
         		v_ptr.remove();
-        		current_x = current_x + 50;
-        		current_y = current_y + 50;
+        		current_x += 50;
+        		current_y += 50;
         		v_ptr = paper.circle(current_x, current_y, 23).attr({"stroke": "green", "stroke-width": 2});
-
         	}
         }
         else alert("Something broke!");
