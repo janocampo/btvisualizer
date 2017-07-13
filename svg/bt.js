@@ -1,6 +1,9 @@
 // Global variables
 var paper, v_ptr, p_ptr, r_ptr; // Used for Raphael
 // Pointers as globals 
+// Boolean variables to keep track of pointer states
+var vIsNull = false;
+var pIsLeaf = false;
 
 /* This function creates the nodes on the image. Acts like a struct.*/
 function createNode(id, x, y) {
@@ -17,6 +20,18 @@ function createNullNode(id, x, y) {
 	this.id_text = paper.text(x, y, id).attr({"font-size": 14, "font-family" : "Times New Roman"});	
 }
 
+function check() {
+	if (vIsNull == true && pIsLeaf == true) {
+		alert("You have completed the task! Congratulations!");
+	}
+	else if (vIsNull == false && pIsLeaf == true) {
+		alert("The parent pointer is a leaf but the V pointer has yet to reach NULL.");
+	}
+	else if (vIsNull == true && pIsLeaf == false) {
+		alert("The V pointer is NULl but the parent pointer is not a leaf");
+	}
+	else alert("None of the objectives have been met");
+}
 
 // Draws the actual tree into the document
 function drawTree() {
@@ -114,10 +129,6 @@ window.onload = function() {
 	// Used to keep track of the pointer coordinates
 	var current_x = 250, current_y = 50;
 
-	// Boolean variables to keep track of pointer states
-	var vIsNull = false;
-	var pIsLeaf = false;
-
 	// Setting up the pointers
 	v_ptr = paper.circle(250, 50, 23);
 	v_ptr.attr("stroke", "green");
@@ -141,12 +152,10 @@ window.onload = function() {
         		pIsLeaf = true;
         	}
         	// If parent points to null
-        	else if (current_y == 250 || current_y == 170 || current_x == 225 || current_x == 275 || current_x == 325 || current_x == 375 || (current_x == 300 && current_y == 150)) {
+        	if (current_y == 250 || current_y == 170 || current_x == 225 || current_x == 275 || current_x == 325 || current_x == 375 || (current_x == 300 && current_y == 150)) {
         		alert("Parent has reached NULL! Task cannot be completed. Reloading...");
         		history.go(0);
         	}
-        	else
-        		alert("Something broke!");
         }
         else if ( $('select#executeQuery').val() === "vLeft") {
         	// Account for user query to go down further after NULL has already been reaced

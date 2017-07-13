@@ -50,14 +50,13 @@ Instructions: Make the parent pointer and v pointer go down the tree until the V
 <h4> User Control </h4>
 <div id = "control"> 
   <select name = "executeQuery" id = "executeQuery">
-    <option value = "pToV"> Parent --> V </option>
-    <option value = "vLeft"> V --> Left </option>
-    <option value = "vRight"> V --> Right </option>
+    <option value = "pToV"> P = V </option>
+    <option value = "vLeft"> V = V --> Left </option>
+    <option value = "vRight"> V = V --> Right </option>
     </select>
     <button id = "submitBtn" type = "button"> Submit </button>
-    <INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
-    <button id = "checkBtn" type = "button" onClick="check()"> Check </button>
-
+    <button onClick="history.go(0)"> Refresh </button>
+    <button onclick = "check()"> Check </button>
 </div>
 
 
