@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+  <title> Binary Tree Tutor </title>
+  <link href="/style.css" type="text/css" rel="stylesheet">
+  
+  <!-- what is this for? -->
+  <style type = "text/css">
+  #canvas_container {
+    width: 350px;
+    color: white;
+    border: 1px solid #aaa;
+  }
+  </style>
+
+        <!-- Libraries used: jQuery and Raphael -->
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.0/raphael.js">
+    </script>
+
+    <!-- ? -->
+    <script src="bttutor.js"> </script>
+
+  </head>
+
+  <body>
+    <h1> Binary Tree - Node Deletion  (Ocampo)</h1>
+
+    <a href = "index.html" target = "_blank">go to homepage</a>
+
+    <p> Welcome to the Binary Tree Tutor! </p>
+    <p> Here you will learn how node deletion in a binary tree works. Please make sure you understand how Binary Tree Search works before you attempt this Visualizer.</p>
+    <p> INSTRUCTIONS: The queries on the user control are used to move the V and P pointers. P also contains assignment pointers used to rearrange the tree upon the deletion of a node. </p>
+    <p> First delete 2 from the tree and then delete 3. </p>
+
+    <!-- Figure out a way to put the buttons in the center of the page -->
+    <div class = "control" id = "userControl">
+        <h4> User Control </h4>
+        <form>
+        <select name = "executeQuery_v" id = "vPtr">
+        <option value = "vLeft"> V = V --> Left </option>
+        <option value = "vRight"> V = V --> Right </option> 
+        <option value = "delete"> Delete V; </option>
+        </select>
+        <button class = "submitBtn_V" type = "button"> Assign V </button>
+
+        <!-- create a Parent = V onclick function -->
+        <select name = "executeQuery_p" id = "pPtr">
+        <option value = "pLeft"> P = P --> Left; </option>
+        <option value = "pRight"> P = P --> Right; </option>
+        <option value = "pLtvL"> P --> Left = V --> Left; </option>
+        <option value = "pLtvR"> P --> Left = V --> Right; </option>
+        <option value = "pRtvL"> P --> Right = V --> Left; </option>
+        <option value = "pRtvR"> P --> Right = V --> Right; </option>
+        <option value = "pRtN">  P --> Right = NULL; </option>
+        <option value = "pLtN"> P --> Left = NULL; </option>
+        </select> 
+        <button class = "submitBtn+V" type = "button"> Assign P </button>
+        <button onClick="history.go(0)"> Refresh </button>
+        <button onclick = "check()"> Check </button>
+        </form>
+    </div>
+
+    <div id = "tree">
+    </div>
+
+  </body>
+</html>
